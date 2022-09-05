@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, reactive, toRefs, computed, watch, onMounted, onBeforeMount, onUpdated } from 'vue';
 // Refer the value of itemName1 in script
-const itemName1 = ref<string>('Desk')
 const itemName2 = 'Bike'
 // reactive is valid for objects
 const item1 = reactive({
     name: 'Desk',
     price: 40000,
 })
-const price1 = 40000
 const price2 = 20000
 const url1 = 'https://www.amazon.co.jp/-/en/%E8%8D%92%E6%9C%A8%E9%A3%9B%E5%91%82%E5%BD%A6-ebook/dp/B009PL86BU/?_encoding=UTF8&pd_rd_w=BLySA&content-id=amzn1.sym.f44247ac-b9eb-44a8-bc22-22bce16483de&pf_rd_p=f44247ac-b9eb-44a8-bc22-22bce16483de&pf_rd_r=NBWXDN0KE35HPJ8W7SWY&pd_rd_wg=mb1pJ&pd_rd_r=278535fe-9430-4297-af16-09b3dad8f53b&ref_=pd_gw_bmx27b'
 
 const buy = (itemName: string) => {
     alert('Are you sure to buy ' + itemName + '?')
 }
+
 const input = (event: any) => {
     // console.log('event:',event.target.value)
     // Input the value into itemName1
@@ -34,6 +33,34 @@ const clear = () => {
     item1.name = ''
     item1.price = 0
 }
+
+onBeforeMount(() => {
+    console.log('before mount')
+})
+
+onMounted(() => {
+    console.log('mounted')
+})
+
+onUpdated(() => {
+    console.log('update')
+})
+
+const budget = 50000;
+
+const priceLabel = ref<string>(item1.price + 'yen')
+const {price} = toRefs(item1)
+
+watch(price, () => {
+    if (price.value > budget * 2) {
+        priceLabel.value =  'tooooo expensive...'
+    } else if (price.value > budget){
+        priceLabel.value = 'too expensive...'
+    } else {
+        priceLabel.value = price.value + 'yen'
+    }
+})
+
 </script>
 
 <template>
@@ -45,7 +72,8 @@ const clear = () => {
         <button @click="clear">Clear</button>
         <div class = "payment">
             <label>{{item1.name}}</label>
-            <label>{{item1.price}} yen</label>
+            <label>{{priceLabel}}</label>
+            <!-- <label>{{item1.price}} yen</label> -->
             <a v-bind:href="url1">bought at...</a>
             <!-- Make a button -->
             <button @click="buy(item1.name)">BUY</button>

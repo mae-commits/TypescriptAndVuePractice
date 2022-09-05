@@ -3,10 +3,11 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import HelloWorld from './components/HelloWorld.vue'
 import payment from './components/payment.vue';
+import Tweet from './components/Tweet.vue'
 </script>
 
 <template>
-  <payment />
+  <Tweet />
 </template>
 
 <!-- <style>
