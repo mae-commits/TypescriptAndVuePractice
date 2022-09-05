@@ -2,12 +2,13 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import HelloWorld from './components/HelloWorld.vue'
-import payment from './components/payment.vue';
-import Tweet from './components/Tweet.vue'
+// import payment from './components/payment.vue';
+// import Tweet from './components/Tweet.vue';
+import Person from './components/Person.vue'
 </script>
 
 <template>
-  <Tweet />
+  <Person />
 </template>
 
 <!-- <style>
